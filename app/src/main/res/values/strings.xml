@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">CustomGit</string>
+    <string name="app_auth_redirect_scheme">REDIRECT_SCHEME</string>
+    <string name="personal_access_token">Personal access Token</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="auth_login">Войти</string>
+    <string name="auth_canceled">Аутентификация не выполнена</string>
+    <string name="get_user_info">Get user info</string>
+    <string name="get_user_error">Get user error</string>
+    <string name="logout">logout</string>
+    <string name="hello">Hello!</string>
+    <string name="github_com">github.com/</string>
+    <string name="your_name_barbie">Your name, Barbie</string>
+    <string name="check_your_token_barbie">CHECK YOUR TOKEN, BARBIE</string>
+    <string name="save_name">SAVE NAME</string>
+    <string name="welcome_barbie">Welcome Barbie!  </string>
+    <string name="your_profile">Profile  </string>
+    <string name="repositories">Repositories  </string>
+    <string name="about_repository">About repository</string>
+    <string name="which_barbie_did_this">Which Barbie did this?</string>
+    <string name="saerch">SAERCH</string>
+    <string name="let_s_explore">Let\'s explore!</string>
+    <string name="enter_name_barbie">Enter name Barbie</string>
+</resources>

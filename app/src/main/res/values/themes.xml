@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CustomGit" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+         <item name="colorPrimary">@color/barbieLite</item>
+        <item name="android:statusBarColor">@color/black_custom</item>
+    </style>
+
+    <style name="Theme.CustomGit" parent="Base.Theme.CustomGit" />
+</resources>
