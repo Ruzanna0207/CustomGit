@@ -1,12 +1,10 @@
 # CustomGit
 ## Mobile app for Android
- ![Screen](https://www.dropbox.com/scl/fi/pv9pe4jvbs0gcjjis80v2/GitApplication.png?rlkey=n0slxzi5lpub80ictplvrd5ha&raw=1)
-
-![anim gif](https://github.com/Ruzanna0207/CustomGit/assets/135521897/160902c5-fab2-4b14-aaf7-6b1fc45ee514)
-
 
 CustomGit - это приложение, которое добавляет частичку тренда сезона 2023 года, изысканный стиль мира Барби, в обыденный просмотр Git-репозиториев и 
 информации о пользователе. Интуитивный интерфейс позволяет легко просматривать существующие проекты.
+
+<img src="https://github.com/Ruzanna0207/CustomGit/assets/135521897/b94a716b-f24d-4482-8b83-51c26f3df0e0" width="300" height="600">
 
 ## Функциональность
 
@@ -47,3 +45,4 @@ CustomGit - это приложение, которое добавляет ча�
 + Glide: Библиотека для работы с изображениями
 
 > Используемый API : https://api.github.com
+ ![Screen](https://www.dropbox.com/scl/fi/pv9pe4jvbs0gcjjis80v2/GitApplication.png?rlkey=n0slxzi5lpub80ictplvrd5ha&raw=1)
