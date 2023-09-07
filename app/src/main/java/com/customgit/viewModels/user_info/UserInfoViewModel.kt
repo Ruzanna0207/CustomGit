@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.openid.appauth.AuthorizationService
+import retrofit2.HttpException
 
 class UserInfoViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -38,37 +39,64 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
     private var _currentUser = MutableLiveData<RemoteGithubUser>()
     val currentUser: LiveData<RemoteGithubUser> = _currentUser
 
+    //ссобщение об ошибке для пользователя
+    var errorUser = MutableLiveData<String>()
 //--------------------------------------------------------------------------------------------------
-    //инф-я о репозиториях
-fun getAllRepos() {
-    viewModelScope.launch(Dispatchers.IO) {
-        try {
-            val repos = userRepository.getRepositories()
-            withContext(Dispatchers.Main) {
-                _currentRepos.value = repos
-                Log.i("Oauth", currentRepos.value.toString())
-            }
-        } catch (e: Exception) {
-            // Обработка исключения здесь
-            Log.e("Oauth", "Ошибка при получении репозиториев: ${e.message}")
-            // Можете предпринять дополнительные действия в зависимости от ошибки
-        }
-    }
-}
 
     //инф-я о пользователе
     fun getUser() {
+        errorUser.value = ""
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val user = userRepository.getUserInformation()
+
                 withContext(Dispatchers.Main) {
                     _currentUser.value = user
                     Log.i("Oauth", currentUser.value.toString())
                 }
+
             } catch (e: Exception) {
-                // Обработка исключения здесь
-                Log.e("Oauth", "Ошибка при получении информации о пользователе: ${e.message}")
-                // Можете предпринять дополнительные действия в зависимости от ошибки
+                // Обработка ошибок
+                if (e is HttpException && e.code() == 404) {
+                    val errorMessage = "Пользователь не найден."
+                    Log.e("Oauth", errorMessage)
+
+                    withContext(Dispatchers.Main) {
+                        errorUser.value = errorMessage
+                    }
+                } else {
+                    val errorMessage = "Ошибка при получении информации о пользователе:${e.message}"
+                    Log.e("Oauth", errorMessage)
+
+                    withContext(Dispatchers.Main) {
+                        errorUser.value = errorMessage
+                    }
+                }
+            }
+        }
+    }
+
+    //    //инф-я о репозиториях
+    fun getAllRepos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val repos = userRepository.getRepositories()
+
+                withContext(Dispatchers.Main) {
+                    _currentRepos.value = repos
+                    Log.i("Oauth", currentRepos.value.toString())
+                }
+
+            } catch (e: Exception) {
+                // Обработка ошибок
+                if (e is HttpException && e.code() == 404) {
+                    val errorMessage = "Репозитории не найдены."
+                    Log.e("Oauth", errorMessage)
+
+                } else {
+                    val errorMessage = "Ошибка при получении репозиториев: ${e.message}"
+                    Log.e("Oauth", errorMessage)
+                }
             }
         }
     }
