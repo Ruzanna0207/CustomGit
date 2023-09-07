@@ -1,6 +1,8 @@
 # CustomGit
 ## Mobile app for Android
  ![Screen](https://www.dropbox.com/scl/fi/pv9pe4jvbs0gcjjis80v2/GitApplication.png?rlkey=n0slxzi5lpub80ictplvrd5ha&raw=1)
+![Animation](https://www.dropbox.com/scl/fi/1hnjt6uyr1v8lcais2zli/Screen_recording_20230907_182748.gif?raw=1)
+
  
 CustomGit - это приложение, которое добавляет частичку тренда сезона 2023 года, изысканный стиль мира Барби, в обыденный просмотр Git-репозиториев и 
 информации о пользователе. Интуитивный интерфейс позволяет легко просматривать существующие проекты.
