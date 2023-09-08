@@ -58,14 +58,14 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
             } catch (e: Exception) {
                 // Обработка ошибок
                 if (e is HttpException && e.code() == 404) {
-                    val errorMessage = "Пользователь не найден."
+                    val errorMessage = "User is not found"
                     Log.e("Oauth", errorMessage)
 
                     withContext(Dispatchers.Main) {
                         errorUser.value = errorMessage
                     }
                 } else {
-                    val errorMessage = "Ошибка при получении информации о пользователе:${e.message}"
+                    val errorMessage = "Error while retrieving user information:${e.message}"
                     Log.e("Oauth", errorMessage)
 
                     withContext(Dispatchers.Main) {
@@ -90,11 +90,11 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
             } catch (e: Exception) {
                 // Обработка ошибок
                 if (e is HttpException && e.code() == 404) {
-                    val errorMessage = "Репозитории не найдены."
+                    val errorMessage = "Repositories not found"
                     Log.e("Oauth", errorMessage)
 
                 } else {
-                    val errorMessage = "Ошибка при получении репозиториев: ${e.message}"
+                    val errorMessage = "Error getting repositories: ${e.message}"
                     Log.e("Oauth", errorMessage)
                 }
             }
