@@ -49,8 +49,9 @@ CustomGit - это приложение, которое добавляет ча�
  ![Screen](https://www.dropbox.com/scl/fi/pv9pe4jvbs0gcjjis80v2/GitApplication.png?rlkey=n0slxzi5lpub80ictplvrd5ha&raw=1)
 
 
+* * *
 
-## Дизайн приложения Custom Git 2№ : 
+## Дизайн приложения Custom Git №2 : 
 > https://github.com/Ruzanna0207/CustomGit2 
 
 ![gitAnons](https://github.com/Ruzanna0207/CustomGit/assets/135521897/add48e52-9933-465b-972a-f1c3fd3e2dc8)
