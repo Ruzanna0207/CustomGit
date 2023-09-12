@@ -7,33 +7,35 @@
 
     <TextView
         android:id="@+id/name_repo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="22dp"
         android:layout_marginBottom="22dp"
         android:fontFamily="monospace"
-        android:maxWidth="285dp"
-        android:text="Name.repo "
+        android:text="NameOfUser/NameOfRepo"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/lang_repo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/lang_repo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="monospace"
         android:maxWidth="78dp"
         android:text="Language"
+        android:textAlignment="textEnd"
         android:textColor="@color/barbie"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/name_repo"
+        app:layout_constraintTop_toTopOf="@+id/name_repo" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

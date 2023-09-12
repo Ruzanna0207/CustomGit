@@ -5,6 +5,8 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class Repository(
+    @SerializedName("name")
+    val name: String?,
     @SerializedName("full_name")
     val fullName: String?,
     @SerializedName("language")
@@ -19,12 +21,14 @@ data class Repository(
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.readParcelable(Owner::class.java.classLoader),
         parcel.readString(),
         parcel.readValue(Boolean::class.java.classLoader) as? Boolean
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
         parcel.writeString(fullName)
         parcel.writeString(language)
         parcel.writeParcelable(owner, flags)

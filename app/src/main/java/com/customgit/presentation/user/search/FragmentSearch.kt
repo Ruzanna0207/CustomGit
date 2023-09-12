@@ -56,14 +56,15 @@ class FragmentSearch : Fragment() {
 
         // обработчик для кнопки Search
         searchButton.setOnClickListener {
-            progressBar.visibility - View.VISIBLE
-            searchButton.visibility = View.INVISIBLE
 
             val enteredUsername = usernameFromUser.text.toString()
 
             when (enteredUsername.isEmpty()) {
                 true -> Toast.makeText(requireContext(), "Enter name", Toast.LENGTH_SHORT).show()
                 else -> {
+                    progressBar.visibility - View.VISIBLE
+                    searchButton.visibility = View.INVISIBLE
+
                     TokenStorage.username = enteredUsername
 
                     requireActivity().supportFragmentManager
@@ -72,7 +73,6 @@ class FragmentSearch : Fragment() {
                         .addToBackStack(null).commit()
                 }
             }
-            progressBar.visibility - View.VISIBLE
         }
     }
 

@@ -1,5 +1,6 @@
 package com.customgit.domain.api
 
+import com.customgit.core.data_classes.ReadmeResponse
 import com.customgit.core.data_classes.RemoteGithubUser
 import com.customgit.core.data_classes.Repository
 import retrofit2.Retrofit
@@ -20,6 +21,12 @@ interface GithubApi {
         @Path("username") username: String,
         @Header("Authorization") token: String
     ): List<Repository>
+
+    @GET("repos/{username}/{repo}/readme")
+    suspend fun getReadme(
+        @Path("username") username: String,
+        @Path("repo") repo: String
+    ): ReadmeResponse
 }
 
 // Фабрика для созд-я экземпляров GithubApi с разными настройками

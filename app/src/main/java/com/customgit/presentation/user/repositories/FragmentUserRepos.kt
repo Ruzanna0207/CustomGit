@@ -59,6 +59,7 @@ class FragmentUserRepos : Fragment(), Clickable {
         super.onResume()
         logOut()
         openSearch()
+        refreshPage()
     }
 
     override fun onDestroyView() {
@@ -101,69 +102,78 @@ class FragmentUserRepos : Fragment(), Clickable {
         }
     }
 
-        //получ-е списка репозиториев
-        private fun aboutRepos() = with(binding) {
-            progressBar.visibility - View.VISIBLE
+    //получ-е списка репозиториев
+    private fun aboutRepos() = with(binding) {
+        progressBar.visibility - View.VISIBLE
 
-            val adapter = RepositoriesAdapter(this@FragmentUserRepos)
-            repositoriesRecView.adapter = adapter
+        val adapter = RepositoriesAdapter(this@FragmentUserRepos)
+        repositoriesRecView.adapter = adapter
 
-            viewModel.currentRepos.observe(viewLifecycleOwner) { repos ->
-                adapter.repos = repos
-                adapter.notifyDataSetChanged()
-            }
-            progressBar.visibility - View.GONE
+        viewModel.currentRepos.observe(viewLifecycleOwner) { repos ->
+            adapter.repos = repos
+            adapter.notifyDataSetChanged()
         }
+        progressBar.visibility - View.GONE
+    }
 
-        //открытие фрагмента для просмотра инф-ии о пользователе при нажатии на аватар
-        private fun clickToSeeDetailsAboutUser() {
-            binding.image.setOnClickListener {
-                viewModel.currentUser.observe(viewLifecycleOwner) { user ->
-                    val secondFragment = FragmentUserDetails()
-                    secondFragment.arguments = bundleOf("user" to user)
+    //открытие фрагмента для просмотра инф-ии о пользователе при нажатии на аватар
+    private fun clickToSeeDetailsAboutUser() {
+        binding.image.setOnClickListener {
+            viewModel.currentUser.observe(viewLifecycleOwner) { user ->
+                val secondFragment = FragmentUserDetails()
+                secondFragment.arguments = bundleOf("user" to user)
 
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .add(R.id.frame, secondFragment)
-                        .addToBackStack(null)
-                        .commit()
-                }
-            }
-        }
-
-        //открытие фрагмента для просмотра инф-ии о репозитории
-        override fun clickToSeeDetailsRepo(repo: Repository) {
-            val secondFragment = FragmentRepoDetails()
-            secondFragment.arguments = bundleOf("repo" to repo)
-
-            requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.frame, secondFragment)
-                .addToBackStack(null)
-                .commit()
-        }
-
-        //открыть поиск других пользователей
-        private fun openSearch() {
-            binding.search.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .add(R.id.frame, FragmentSearch.newInstance3())
+                    .add(R.id.frame, secondFragment)
                     .addToBackStack(null)
                     .commit()
             }
         }
+    }
 
-        //фун-я для логаута
-        private fun logOut() = with(viewModel) {
-            binding.exit.setOnClickListener {
-                logout()
-            }
-            logoutPageFlow.launchAndCollectIn(viewLifecycleOwner) {
-                logoutResponse.launch(it)
-            }
+    //открытие фрагмента для просмотра инф-ии о репозитории
+    override fun clickToSeeDetailsRepo(repo: Repository) {
+        val secondFragment = FragmentRepoDetails()
+        secondFragment.arguments = bundleOf("repo" to repo)
 
-            logoutCompletedFlow.launchAndCollectIn(viewLifecycleOwner) {
-                requireActivity().supportFragmentManager
-                    .beginTransaction().replace(R.id.frame, FragmentAuth()).commit()
-            }
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.frame, secondFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    //открыть поиск других пользователей
+    private fun openSearch() {
+        binding.search.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .add(R.id.frame, FragmentSearch.newInstance3())
+                .addToBackStack(null)
+                .commit()
         }
     }
+
+    private fun refreshPage() = with(binding) {
+        swipeRefreshLayout.setOnRefreshListener {
+            getInfo()
+            aboutUser()
+            aboutRepos()
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    //фун-я для логаута
+    private fun logOut() = with(viewModel) {
+        binding.exit.setOnClickListener {
+            logout()
+        }
+        logoutPageFlow.launchAndCollectIn(viewLifecycleOwner) {
+            logoutResponse.launch(it)
+        }
+
+        logoutCompletedFlow.launchAndCollectIn(viewLifecycleOwner) {
+            requireActivity().supportFragmentManager
+                .beginTransaction().replace(R.id.frame, FragmentAuth()).commit()
+        }
+    }
+}
 

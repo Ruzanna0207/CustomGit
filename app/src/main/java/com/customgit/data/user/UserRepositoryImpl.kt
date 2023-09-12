@@ -1,5 +1,6 @@
 package com.customgit.data.user
 
+import com.customgit.core.data_classes.ReadmeResponse
 import com.customgit.core.data_classes.RemoteGithubUser
 import com.customgit.core.data_classes.Repository
 import com.customgit.data.auth.app_auth.AppAuth
@@ -43,5 +44,10 @@ class UserRepositoryImpl : UserRepository {
     override fun updateUser() {
         token = TokenStorage.accessToken ?: ""
         user = TokenStorage.username
+    }
+
+    //получ-е инфы о readme
+    override suspend fun getReadme(repo: String): ReadmeResponse {
+        return actualGitUser.getReadme(user, repo)
     }
 }

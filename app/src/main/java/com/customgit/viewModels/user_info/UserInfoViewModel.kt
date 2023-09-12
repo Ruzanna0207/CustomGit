@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.customgit.core.data_classes.ReadmeResponse
 import com.customgit.core.data_classes.RemoteGithubUser
 import com.customgit.core.data_classes.Repository
 import com.customgit.data.user.UserRepositoryImpl
@@ -41,6 +42,10 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
 
     //ссобщение об ошибке для пользователя
     var errorUser = MutableLiveData<String>()
+
+    //инф-я о readme.md
+    private var _currentReadme = MutableLiveData<ReadmeResponse?>()
+    val currentReadme: LiveData<ReadmeResponse?> = _currentReadme
 //--------------------------------------------------------------------------------------------------
 
     //инф-я о пользователе
@@ -96,6 +101,35 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
                 } else {
                     val errorMessage = "Error getting repositories: ${e.message}"
                     Log.e("Oauth", errorMessage)
+                }
+            }
+        }
+    }
+
+    // Получение README.md для выбранного репозитория
+    fun getReadmeForRepository(repo: String) {
+        errorUser.value = ""
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val readme = userRepository.getReadme(repo)
+                withContext(Dispatchers.Main) {
+                    _currentReadme.value = readme
+                    Log.i("Oauth", currentReadme.value.toString())
+                }
+            } catch (e: Exception) {
+                // Обработка ошибок
+                if (e is HttpException && e.code() == 404) {
+                    val errorMessage = "Readme not found"
+                    Log.e("Oauth", "$errorMessage ${currentReadme.value}")
+                    withContext(Dispatchers.Main) {
+                        errorUser.value = errorMessage
+                    }
+                } else {
+                    val errorMessage = "Error getting readme: ${e.message}"
+                    Log.e("Oauth", errorMessage)
+                    withContext(Dispatchers.Main) {
+                        errorUser.value = errorMessage
+                    }
                 }
             }
         }

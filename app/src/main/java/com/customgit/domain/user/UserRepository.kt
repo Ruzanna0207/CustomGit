@@ -1,5 +1,6 @@
 package com.customgit.domain.user
 
+import com.customgit.core.data_classes.ReadmeResponse
 import com.customgit.core.data_classes.RemoteGithubUser
 import com.customgit.core.data_classes.Repository
 import net.openid.appauth.EndSessionRequest
@@ -21,4 +22,7 @@ interface UserRepository {
 
     //обновл-е инфы о пользователе после логаута
     fun updateUser()
+
+    //получ-е инфы о readme
+    suspend fun getReadme(repo: String) : ReadmeResponse
 }

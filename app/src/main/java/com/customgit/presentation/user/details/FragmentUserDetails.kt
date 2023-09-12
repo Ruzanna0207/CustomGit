@@ -46,6 +46,6 @@ class FragmentUserDetails : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
         //карточка остается без изменений
-        card.setOnClickListener {}
+//        card.setOnClickListener {}
     }
 }
